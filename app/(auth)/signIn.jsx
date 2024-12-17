@@ -1,6 +1,6 @@
 import { Link, router } from "expo-router";
 import React, { useState } from "react";
-import { Image, ScrollView, Text, View } from "react-native";
+import { Alert, Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { verticalScale as rh } from "react-native-size-matters";
 import CustomButton from "../../components/CustomButton";
@@ -9,19 +9,21 @@ import { colors, images } from "../../constants";
 
 const SignIn = () => {
 	const [from, setFrom] = useState({ email: "", password: "" });
-	const [isLoading, setIsLoading] = useState(false)
+	const [isLoading, setIsLoading] = useState(false);
 
 	const handelSubmit = () => {
-		setIsLoading(true)
+		if (!from.email || !from.password) return Alert.alert("Please fill all fields");
+
+		setIsLoading(true);
 		setTimeout(() => {
-			setIsLoading(false)
-			// router.push("/tabs/home")
-		}, 2000)
+			setIsLoading(false);
+			router.replace("/home");
+		}, 2000);
 	};
 
 	return (
-		<SafeAreaView style={{height: "100%", backgroundColor: colors.secondary.shad1 }}>
-			<ScrollView contentContainerStyle={{ height: "100%",justifyContent: "center" }}>
+		<SafeAreaView style={{ height: "100%", backgroundColor: colors.secondary.shad1 }}>
+			<ScrollView contentContainerStyle={{ height: "100%", justifyContent: "center" }}>
 				<View
 					style={{
 						width: "100%",
@@ -79,7 +81,7 @@ const SignIn = () => {
 					<View style={{ flexDirection: "row", justifyContent: "center" }}>
 						<Text style={{ fontSize: rh(9.95), color: colors.gray.shad1, fontWeight: "400" }}>
 							Don’t have an account?{" "}
-							<Link style={{ color: colors.primary.shad1 }} href="/signUp">
+							<Link style={{ color: colors.primary.shad1 }} dismissTo="/signIn" href="/signUp">
 								Sign up
 							</Link>
 						</Text>
