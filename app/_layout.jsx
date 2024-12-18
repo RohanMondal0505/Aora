@@ -4,20 +4,20 @@ import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { colors } from "../constants";
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
-	const [fontsLoaded, error] = useFonts({
-		"Poppins-Black": require("../assets/fonts/Poppins-Regular.ttf"),
-	});
+	// const [fontsLoaded, error] = useFonts({
+	// 	"Poppins-Black": require("../assets/fonts/Poppins-Regular.ttf"),
+	// });
 
-	useEffect(() => {
-		console.log("error=> ", error);
-		if (error) throw error;
-		if (fontsLoaded) SplashScreen.hideAsync();
-	}, [fontsLoaded, error]);
+	// useEffect(() => {
+	// 	console.log("error=> ", error);
+	// 	if (error) throw error;
+	// 	if (fontsLoaded) SplashScreen.hideAsync();
+	// }, [fontsLoaded, error]);
 
-	if (!fontsLoaded && !error) return null;
+	// if (!fontsLoaded && !error) return null;
 
 	return (
 		<>
