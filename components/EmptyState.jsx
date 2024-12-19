@@ -4,13 +4,13 @@ import { verticalScale as rh } from "react-native-size-matters";
 import { colors, images } from "../constants";
 import CustomButton from "./CustomButton";
 
-const EmptyState = ({ title, subTitle }) => {
+const EmptyState = ({ title, subTitle, buttonText }) => {
 	return (
 		<View style={styles.container}>
 			<Image source={images.empty} resizeMode="contain" style={styles.img} />
 			<Text style={styles.title}>{title}</Text>
             <Text style={styles.subtitle}>{subTitle}</Text>
-            <CustomButton title="Create Video" handelPress={() => {}} containerStyle={{ width: "100%" }} />
+			{buttonText && <CustomButton title={buttonText} handelPress={() => {}} containerStyle={{ width: "100%" }} />}
 		</View>
 	);
 };

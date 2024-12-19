@@ -9,6 +9,18 @@ import VideoCard from "../../components/VideoCard";
 import { colors, images } from "../../constants";
 
 const Home = () => {
+	const [data, setData] = useState([
+		{ id: 1 },
+		{ id: 2 },
+		{ id: 3 },
+		{ id: 4 },
+		{ id: 5 },
+		{ id: 6 },
+		{ id: 7 },
+		{ id: 8 },
+		{ id: 9 },
+		{ id: 10 },
+	]);
 	const [refreshing, setRefreshing] = useState(false);
 
 	const onRefresh = async () => {
@@ -17,11 +29,11 @@ const Home = () => {
 			setRefreshing(false);
 		}, 3000);
 	};
+
 	return (
 		<SafeAreaView style={styles.SafeAreaView}>
 			<FlatList
-				// data={[]}
-				data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+				data={data}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => <VideoCard data={item} />}
 				ListHeaderComponent={() => (
@@ -38,10 +50,16 @@ const Home = () => {
 
 						<Text style={styles.tv}>Trending Videos</Text>
 
-						<TrendingList post={[{ id: 1 }, { id: 2 }, { id: 3 }] ?? []} />
+						<TrendingList post={data ?? []} />
 					</View>
 				)}
-				ListEmptyComponent={<EmptyState title={"No Videos Found"} subTitle={"Be the first one to upload a video"} />}
+				ListEmptyComponent={
+					<EmptyState
+						title={"No Videos Found"}
+						subTitle={"Be the first one to upload a video"}
+						buttonText={"Create Video"}
+					/>
+				}
 				refreshControl={
 					<RefreshControl
 						colors={[colors.primary.shad1, colors.secondary.shad2]}
@@ -52,6 +70,10 @@ const Home = () => {
 						onRefresh={onRefresh}
 					/>
 				}
+				removeClippedSubviews={false}
+				initialNumToRender={5}
+				maxToRenderPerBatch={5}
+				windowSize={5}
 			/>
 		</SafeAreaView>
 	);
@@ -63,8 +85,6 @@ const styles = StyleSheet.create({
 		paddingTop: rh(31.3),
 		paddingHorizontal: rh(17),
 		paddingBottom: rh(26),
-		borderWidth: 1,
-		borderColor: colors.primary.shad3,
 	},
 	TopComponent: {
 		width: "100%",

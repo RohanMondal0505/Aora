@@ -1,10 +1,24 @@
+import { useVideoPlayer, VideoView } from "expo-video";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { verticalScale as rh } from "react-native-size-matters";
 import { colors, icons } from "../constants";
 
 const VideoCard = ({ data }) => {
-	const [play, setPlay] = useState(false);
+	const [threeDot, setThreeDot] = useState(false);
+	const [playState, setPlayState] = useState(false);
+
+	const player = useVideoPlayer(
+		"https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
+		(player) => {
+			player.loop = true;
+		}
+	);
+
+	const handlePlay = () => {
+		player.play();
+		setPlayState(true);
+	};
 
 	return (
 		<View style={styles.MainContainer}>
@@ -17,9 +31,29 @@ const VideoCard = ({ data }) => {
 							VideoCard wefw wfef wwef wefw efw dfvdfvdjvdfv dfvjdfvd fvjdfv df
 						</Text>
 
-						<TouchableOpacity style={styles.menuWrapper}>
+						<TouchableOpacity style={styles.menuWrapper} onPress={() => setThreeDot(!threeDot)}>
 							<Image source={icons.menu} resizeMode="contain" style={styles.menu} />
 						</TouchableOpacity>
+
+						<View style={[styles.threeDot, { display: threeDot ? "flex" : "none" }]}>
+							<View style={styles.threeDotBtnWrap}>
+								<TouchableOpacity
+									style={[styles.threeDotBtn]}
+									activeOpacity={0.7}
+									onPress={() => setThreeDot(!threeDot)}>
+									<Text style={styles.threeDotText}>Save</Text>
+									{/* <Image source={icons.menu} resizeMode="contain" style={styles.menu} /> */}
+								</TouchableOpacity>
+
+								<TouchableOpacity
+									style={[styles.threeDotBtn]}
+									activeOpacity={0.7}
+									onPress={() => setThreeDot(!threeDot)}>
+									<Text style={styles.threeDotText}>Delete</Text>
+									{/* <Image source={icons.menu} resizeMode="contain" style={styles.menu} /> */}
+								</TouchableOpacity>
+							</View>
+						</View>
 					</View>
 
 					<Text style={styles.describe} numberOfLines={1}>
@@ -29,10 +63,12 @@ const VideoCard = ({ data }) => {
 			</View>
 
 			<View style={styles.BottomContainer}>
-				{play ? (
-					""
+				{playState ? (
+					<View style={styles.VideoWrapper}>
+						<VideoView style={styles.Video} player={player} allowsFullscreen allowsPictureInPicture />
+					</View>
 				) : (
-					<TouchableOpacity activeOpacity={0.8} style={styles.CoverWrapper} onPress={() => setPlay(!play)}>
+					<TouchableOpacity activeOpacity={0.8} style={styles.CoverWrapper} onPress={handlePlay}>
 						<Image source={{ uri: `https://picsum.photos/100${data.id}` }} resizeMode="cover" style={styles.cover} />
 						<Image source={icons.play} resizeMode="contain" style={styles.play} />
 					</TouchableOpacity>
@@ -53,6 +89,7 @@ const styles = StyleSheet.create({
 	TopContainer: {
 		gap: rh(6),
 		flexDirection: "row",
+		zIndex: 2,
 	},
 	img: {
 		height: rh(32.7),
@@ -85,19 +122,39 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: rh(180),
 		borderRadius: rh(7.1),
+		zIndex: 1,
 		flexShrink: 0,
-        position: "relative",
+		position: "relative",
+		shadowColor: colors.black,
+		shadowOffset: {
+			width: 1,
+			height: 1,
+		},
+		shadowOpacity: 0.5,
+		shadowRadius: 3,
+		elevation: 3,
+		backgroundColor: colors.black,
 	},
 	CoverWrapper: {
 		width: "100%",
 		height: "100%",
-        borderRadius: rh(7.1),
-        overflow: "hidden",
-    },
-    cover: {
-        width: "100%",
-        height: "100%",
-    },
+		borderRadius: rh(7.1),
+		overflow: "hidden",
+	},
+	VideoWrapper: {
+		width: "100%",
+		height: "100%",
+		borderRadius: rh(7.1),
+		overflow: "hidden",
+	},
+	Video: {
+		width: "100%",
+		height: "100%",
+	},
+	cover: {
+		width: "100%",
+		height: "100%",
+	},
 	play: {
 		width: rh(30),
 		height: rh(30),
@@ -105,7 +162,7 @@ const styles = StyleSheet.create({
 		top: "50%",
 		left: "50%",
 		transform: [{ translateX: "-50%" }, { translateY: "-50%" }],
-        shadowColor: colors.black,
+		shadowColor: colors.black,
 		shadowOffset: {
 			width: 2,
 			height: 2,
@@ -113,5 +170,42 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.5,
 		shadowRadius: 2,
 		elevation: 5,
+	},
+	threeDot: {
+		width: rh(79),
+		height: rh(45.5),
+		position: "absolute",
+		top: rh(20),
+		right: 0,
+		shadowColor: colors.black,
+		shadowOffset: {
+			width: 1,
+			height: 1,
+		},
+		shadowOpacity: 0.5,
+		shadowRadius: 3,
+		elevation: 3,
+	},
+	
+	threeDotBtnWrap: {
+		flex:1,
+		backgroundColor: colors.secondary.shad3,
+		borderRadius: rh(4),
+		overflow: "hidden",
+	},
+	threeDotBtn: {
+		backgroundColor: colors.secondary.shad3,
+		display: "flex",
+		flex: 1,
+		width: "100%",
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "center",
+		gap: rh(3.5),
+	},
+	threeDotText: {
+		color: colors.gray.shad1,
+		fontSize: rh(8.5),
+		fontWeight: "600",
 	},
 });

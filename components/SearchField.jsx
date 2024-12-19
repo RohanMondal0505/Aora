@@ -1,25 +1,34 @@
+import { router, usePathname } from "expo-router";
 import React, { useState } from "react";
-import { Image, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 import { verticalScale as rh } from "react-native-size-matters";
 import { colors, icons } from "../constants";
 
-const SearchField = ({ placeholder, value, onChange, keyboardType, otherStyle }) => {
+const SearchField = ({ placeholder, value, otherStyle }) => {
+	const pathName = usePathname();
+	const [query, setQuery] = useState(value?value:"");
 	const [borderColor, setBorderColor] = useState(colors.secondary.shad3);
+
+	const handleSearch = () => {
+		if (!query) return Alert.alert("Please enter a search term");
+		if (pathName.startsWith("/search")) router.setParams({ query });
+		else router.push(`/search/${query}`);
+	};
 
 	return (
 		<View style={[styles.inputWrapper, { borderColor: borderColor }, otherStyle]}>
 			<TextInput
 				placeholder={placeholder}
-				placeholderTextColor={colors.gray.shad2}
-				value={value}
-				onChangeText={onChange}
-				keyboardType={keyboardType}
-				// onFocus={() => setBorderColor(colors.primary.shad3)}
-				// onBlur={() => setBorderColor(colors.secondary.shad3)}
+				placeholderTextColor={colors.gray.shad1}
+				value={query}
+				onChangeText={(value) => setQuery(value)}
+				onSubmitEditing={handleSearch}
+				onFocus={() => setBorderColor(colors.primary.shad3)}
+				onBlur={() => setBorderColor(colors.secondary.shad3)}
 				style={styles.input}
 			/>
 
-			<TouchableOpacity activeOpacity={0.7} style={styles.searchWrapper} onPress={() => {}}>
+			<TouchableOpacity activeOpacity={0.7} style={styles.searchWrapper} onPress={handleSearch}>
 				<Image source={icons.search} resizeMode="contain" style={styles.search} />
 			</TouchableOpacity>
 		</View>
