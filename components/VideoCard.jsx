@@ -1,8 +1,10 @@
 import { useVideoPlayer, VideoView } from "expo-video";
 import React, { useState } from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Alert, Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { verticalScale as rh } from "react-native-size-matters";
 import { colors, icons } from "../constants";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 
 const VideoCard = ({ data }) => {
 	const [threeDot, setThreeDot] = useState(false);
@@ -18,6 +20,16 @@ const VideoCard = ({ data }) => {
 	const handlePlay = () => {
 		player.play();
 		setPlayState(true);
+	};
+
+	const handelSave = () => {
+		setThreeDot(!threeDot);
+		Alert.alert("Saved");
+	};
+
+	const handelDelete = () => {
+		setThreeDot(!threeDot);
+		Alert.alert("Delete");
 	};
 
 	return (
@@ -37,20 +49,14 @@ const VideoCard = ({ data }) => {
 
 						<View style={[styles.threeDot, { display: threeDot ? "flex" : "none" }]}>
 							<View style={styles.threeDotBtnWrap}>
-								<TouchableOpacity
-									style={[styles.threeDotBtn]}
-									activeOpacity={0.7}
-									onPress={() => setThreeDot(!threeDot)}>
+								<TouchableOpacity style={[styles.threeDotBtn]} activeOpacity={0.7} onPress={handelSave}>
+									<FontAwesome name="bookmark" size={rh(8.5)} color="#fff" />
 									<Text style={styles.threeDotText}>Save</Text>
-									{/* <Image source={icons.menu} resizeMode="contain" style={styles.menu} /> */}
 								</TouchableOpacity>
 
-								<TouchableOpacity
-									style={[styles.threeDotBtn]}
-									activeOpacity={0.7}
-									onPress={() => setThreeDot(!threeDot)}>
+								<TouchableOpacity style={[styles.threeDotBtn]} activeOpacity={0.7} onPress={handelDelete}>
+									<MaterialIcons name="delete" size={rh(8.5)} color="#fff" />
 									<Text style={styles.threeDotText}>Delete</Text>
-									{/* <Image source={icons.menu} resizeMode="contain" style={styles.menu} /> */}
 								</TouchableOpacity>
 							</View>
 						</View>
@@ -186,9 +192,8 @@ const styles = StyleSheet.create({
 		shadowRadius: 3,
 		elevation: 3,
 	},
-	
 	threeDotBtnWrap: {
-		flex:1,
+		flex: 1,
 		backgroundColor: colors.secondary.shad3,
 		borderRadius: rh(4),
 		overflow: "hidden",

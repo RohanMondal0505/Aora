@@ -97,11 +97,13 @@ const styles = StyleSheet.create({
 		fontSize: rh(9.95),
 		color: colors.gray.shad1,
 		fontWeight: "500",
+		fontFamily: "Poppins-Regular",
 	},
 	name: {
 		fontSize: rh(17),
 		color: colors.white,
 		fontWeight: "600",
+		fontFamily: "Poppins-Bold",
 	},
 	logo: {
 		width: rh(21.3),
