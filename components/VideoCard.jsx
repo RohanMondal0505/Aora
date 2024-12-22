@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
 		width: "100%",
 		flexDirection: "row",
 		alignItems: "center",
-		justifyContent: "center",
+		paddingLeft: rh(15),
 		gap: rh(3.5),
 	},
 	threeDotText: {

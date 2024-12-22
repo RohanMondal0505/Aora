@@ -1,23 +1,19 @@
-import { useFonts } from "expo-font";
+import { getLoadedFonts, useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
-import { colors } from "../constants";
+import { colors, fonts } from "../constants";
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
-	const [fontsLoaded, error] = useFonts({
-		"Poppins-Regular": require("../assets/fonts/Poppins-Regular.ttf"),
-		"Poppins-Bold": require("../assets/fonts/Poppins-Bold.ttf"),
-		"Playwrite-Regular": require("../assets/fonts/Playwrite-Regular.ttf"),
-	});
+	const [fontsLoaded, error] = useFonts(fonts);
+	// console.log(getLoadedFonts().length);
 
 	useEffect(() => {
 		if (fontsLoaded || error) SplashScreen.hideAsync();
 	}, [fontsLoaded, error]);
-	console.log(error, fontsLoaded)
 
 	if (!fontsLoaded && !error) return null;
 

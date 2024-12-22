@@ -10,8 +10,8 @@ const Profile = () => {
 			<Text style={{ fontFamily: "Playwrite-Regular" }}>Profile</Text>
 			<Text style={{ fontFamily: "Poppins-Bold" }}>Profile</Text>
 			<Text>Profile</Text>
-			<Ionicons name="checkmark-circle" size={32} color="green" />
-			<MaterialIcons name="delete" size={24} color="#fff" />
+			<Ionicons name="checkmark-circle" size={32} color="red" />
+			<MaterialIcons name="delete" size={24} color="#f00" />
 		</SafeAreaView>
 	);
 };

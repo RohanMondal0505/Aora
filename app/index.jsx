@@ -8,7 +8,7 @@ import { colors, images } from "../constants";
 
 const index = () => {
 	const isLoggedIn = true;
-	if (isLoggedIn) return <Redirect href="/home" />;
+	if (isLoggedIn) return <Redirect href="/create" />;
 	else
 		return (
 			<SafeAreaView style={styles.mainWrapper}>
