@@ -1,7 +1,7 @@
 import icons from "./icons";
 import images from "./images";
 
-const colors = {
+const darkColor = {
 	black: "#000",
 	white: "#fff",
 	primary: {
@@ -16,6 +16,23 @@ const colors = {
 	},
 	gray: { shad1: "#CDCDE0", shad2: "#7B7B8B" },
 };
+const lightColor = {
+	black: "#fff",
+	white: "#000",
+	primary: {
+		shad1: "#f0f",
+		shad2: "#f0f",
+		shad3: "#00f",
+	},
+	secondary: {
+		shad1: "#ffff",
+		shad2: "#fff",
+		shad3: "#f00",
+	},
+	gray: { shad1: "#0f0", shad2: "#00f" },
+};
+
+let colors = darkColor;
 
 const fonts = {
 	"Playwrite-Regular": require("../assets/fonts/Playwrite-Regular.ttf"),
@@ -30,4 +47,4 @@ const fonts = {
 	"Poppins-Thin": require("../assets/fonts/Poppins-Thin.ttf"),
 };
 
-export { colors, icons, images, fonts };
+export { colors, darkColor, fonts, icons, images, lightColor };

@@ -1,9 +1,11 @@
-import { getLoadedFonts, useFonts } from "expo-font";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect } from "react";
 import { colors, fonts } from "../constants";
+import store from "../redux/store";
+import { Provider } from "react-redux";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -18,7 +20,7 @@ const RootLayout = () => {
 	if (!fontsLoaded && !error) return null;
 
 	return (
-		<>
+		<Provider store={store}>
 			<StatusBar style="light" backgroundColor={colors.secondary.shad1} />
 			<Stack>
 				<Stack.Screen name="index" options={{ headerShown: false }} />
@@ -26,7 +28,7 @@ const RootLayout = () => {
 				<Stack.Screen name="(tabs)" options={{ headerShown: false }} />
 				<Stack.Screen name="search/[query]" options={{ headerShown: false }} />
 			</Stack>
-		</>
+		</Provider>
 	);
 };
 
