@@ -48,3 +48,36 @@ Join our community of developers creating universal apps.
 
 - [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
 - [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+
+
+## EAS
+
+### Configure EAS JSON
+```bash
+eas build:configure
+```
+
+### Creating Server Build IOS
+```bash
+eas build --profile development-simulator --platform ios
+```
+
+### Creating Server Build ANDROID
+```bash
+eas build --profile development --platform android
+```
+
+### Creating Local Build IOS
+```bash
+eas build --profile development --p ios --local
+```
+
+### Creating Local Build ANDROID
+```bash
+eas build --profile development --p android --local
+```
+
+### Create IOS testing Device
+```bash
+eas device:create
+```
