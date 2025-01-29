@@ -86,7 +86,7 @@ eas build --profile development --p ios --local
 
 ### Creating Local Build ANDROID
 ```bash
-eas build --profile development --p android --local
+eas build --profile preview --platform android --local
 ```
 
 ### Create IOS testing Device
