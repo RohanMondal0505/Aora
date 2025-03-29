@@ -1,6 +1,6 @@
 # Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+App configuration
 
 ## Get started
 
@@ -36,7 +36,7 @@ eas build:configure
 
 ### Creating Server Build IOS
 ```bash
-eas build --profile development-simulator --platform ios
+eas build --profile simulator --platform ios
 ```
 
 ### Creating Server Build ANDROID
